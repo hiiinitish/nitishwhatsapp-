@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>मेरा खुद का व्हाट्सऐप</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #efeae2;
+        }
+        
+        /* हरी पट्टी */
+        .whatsapp-header {
+            background-color: #075e54;
+            color: white;
+            padding: 15px;
+            font-size: 20px;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        /* चैट स्क्रीन (जहाँ मैसेजेस दिखेंगे) */
+        .chat-area {
+            padding: 70px 15px 80px 15px; /* ऊपर-नीचे पट्टी के लिए खाली जगह छोड़ी */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* मैसेज का गोल डिब्बा */
+        .msg-bubble {
+            background-color: #d9fdd3; /* व्हाट्सऐप के अपने मैसेज का हल्का हरा रंग */
+            padding: 10px 15px;
+            border-radius: 10px;
+            margin: 5px 0;
+            max-width: 75%;
+            width: fit-content;
+            align-self: flex-end; /* मैसेजेस को दाईं (Right) तरफ दिखाने के लिए */
+            box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+            font-size: 16px;
+        }
+
+        /* टाइपिंग बार कंटेनर */
+        .input-container {
+            display: flex;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #f0f2f5;
+            padding: 10px;
+            box-sizing: border-box;
+            align-items: center;
+        }
+
+        .message-input {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 25px;
+            outline: none;
+            font-size: 16px;
+            background-color: white;
+        }
+
+        .send-btn {
+            background-color: #00a884;
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 50%;
+            margin-left: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="whatsapp-header">
+        नितीश का व्हाट्सऐप
+    </div>
+
+    <!-- चैट एरिया (नया हिस्सा जहाँ कोडिंग से मैसेज जुड़ेंगे) -->
+    <div class="chat-area" id="chatBox"></div>
+
+    <div class="input-container">
+        <!-- यहाँ हमने id="myInput" जोड़ा है ताकि जावास्क्रिप्ट इसे ढूंढ सके -->
+        <input type="text" id="myInput" class="message-input" placeholder="मैसेज टाइप करें...">
+        <!-- यहाँ onclick="sendMsg()" जोड़ा है जो बटन को एक्शन देगा -->
+        <button class="send-btn" onclick="sendMsg()">></button>
+    </div>
+
+    <!-- यहाँ से जावास्क्रिप्ट (दिमाग) शुरू होता है -->
+    <script>
+        function sendMsg() {
+            // 1. टाइपिंग बॉक्स और चैट एरिया को ढूंढना
+            var inputField = document.getElementById("myInput");
+            var chatBox = document.getElementById("chatBox");
+            
+            // 2. बॉक्स में क्या टाइप किया है वो निकालना
+            var messageText = inputField.value;
+
+            // 3. अगर बॉक्स खाली नहीं है, तभी आगे बढ़ो
+            if (messageText.trim() !== "") {
+                
+                // 4. कोडिंग से एक नया मैसेज बबल (div) बनाना
+                var newBubble = document.createElement("div");
+                newBubble.className = "msg-bubble";
+                newBubble.innerText = messageText;
+
+                // 5. इस नए बबल को स्क्रीन के चैट एरिया में जोड़ देना
+                chatBox.appendChild(newBubble);
+
+                // 6. मैसेज भेजने के बाद टाइपिंग बॉक्स को खाली कर देना
+                inputField.value = "";
+
+                // 7. स्क्रीन को अपने आप नीचे स्क्रॉल करना
+                window.scrollTo(0, document.body.scrollHeight);
+            }
+        }
+    </script>
+
+</body>
+</html>
